@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-export default function Navbar() {
+
+export default function Navbar({ setSelected, routes }) {
+
   const navStyles = {
     display: 'flex',
     gridDirection: 'row',
@@ -15,9 +17,7 @@ export default function Navbar() {
 
   return (
     <nav style={navStyles}>
-      <a style={linkStyles}>Link 1</a>
-      <a style={linkStyles}>Link 2</a>
-      <a style={linkStyles}>Link 3</a>
+      {Object.keys(routes).map(key => <p onClick={(e) => setSelected(key)}>{routes[key]}</p>)}
     </nav>
   );
 }

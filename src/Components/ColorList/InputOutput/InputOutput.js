@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { sha256 } from 'js-sha256';
-import Slider from '../../Components/Slider/Slider';
+import Slider from '../Slider/Slider';
 import { Button } from '@mui/material';
 
-export default function InputOutput({ savePressed, color, setColor, text, setText }) {
-
+export default function InputOutput({
+  savePressed,
+  color,
+  setColor,
+  text,
+  setText,
+}) {
   const textStyles = {
     color: color,
     top: '50px',

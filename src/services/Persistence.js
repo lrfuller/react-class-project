@@ -4,10 +4,9 @@ const Local = {
   },
   load: () => {
     try {
-      if (localStorage.getItem('rgbApp') == 'undefined')
-        localStorage.setItem('rgbApp', JSON.stringify([]));
       return JSON.parse(localStorage.getItem('rgbApp'));
-    } catch {
+    } catch(exception) {
+      console.log(exception);
       return [];
     }
   },

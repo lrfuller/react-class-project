@@ -1,50 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
-import InputOutput from './Components/InputOutput/InputOutput';
 import Navbar from './Components/Navbar/Navbar';
-import Sidebar from './Components/Sidebar/Sidebar';
-import Local from './services/Persistence';
+import ColorList from './Components/ColorList/ColorList';
 
-let count = 0;
+const Routes = {
+  ColorList: 'Fungii',
+};
 
 export default function App() {
-  const list = Local.load();
-  const [all, setAll] = useState(list);
-  const [text, setText] = useState('');
-  const [color, setColor] = useState('black');
+  const [route, setRoute] = useState(null);
 
-  function itemClicked(e, newText, newColor, index) {
-    setText(newText);
-    setColor(newColor);
-     let newAll = all.filter(item => item.index != index);
-     setAll(newAll);
-  }
-
-  function savePressed(newText, newColor) {
-    const textStyles = {
-      color: newColor,
-      top: '50px',
-      display: 'block',
-    };
-
-    const index = all.length.toString();
-    let newAll = all.concat({ index , style: textStyles, text: newText });
-    
-    setAll(newAll);
-    Local.save(newAll);
+  function setNewRoute(newRoute) {
+    switch (newRoute) {
+      case 'ColorList':
+        return <ColorList />;
+      ///  new routes
+      default:
+        <div />;
+    }
   }
 
   return (
     <div>
-      <Navbar />
-      <Sidebar all={all} itemClicked={itemClicked} />
-      <InputOutput
-        savePressed={savePressed}
-        color={color}
-        setColor={setColor}
-        text={text}
-        setText={setText}
-      />
+      <Navbar setSelected={setRoute} routes={Routes} />
+      {setNewRoute(route)}
     </div>
   );
 }
