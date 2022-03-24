@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Slider } from '@mui/material';
+import { Slider as SliderMUI } from '@mui/material';
 
 export default function Slider({ color, setColor }) {
   const sliderStyles = {
@@ -55,7 +55,7 @@ export default function Slider({ color, setColor }) {
 
   return (
     <div>
-      <Slider
+      <SliderMUI
         size="small"
         style={sliderStyles}
         min={0}
@@ -64,7 +64,7 @@ export default function Slider({ color, setColor }) {
         onChange={(e) => newValue(setRValue, e.target.value)}
       />
       <br />
-      <Slider
+      <SliderMUI
         size="small"
         style={gSliderStyles}
         min={0}
@@ -73,7 +73,7 @@ export default function Slider({ color, setColor }) {
         onChange={(e) => newValue(setGValue, e.target.value)}
       />
       <br />
-      <Slider
+      <SliderMUI
         size="small"
         style={bSliderStyles}
         min={0}
