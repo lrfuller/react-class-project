@@ -5,6 +5,7 @@ import ColorList from './Components/ColorList/ColorList';
 
 const Routes = {
   ColorList: 'Fungii',
+  DakotaPage: 'Dakota',
 };
 
 export default function App() {
@@ -15,6 +16,8 @@ export default function App() {
       case 'ColorList':
         return <ColorList />;
       ///  new routes
+      case 'DakotaPage':
+        return <DakotaPage/>;
       default:
         <div />;
     }
