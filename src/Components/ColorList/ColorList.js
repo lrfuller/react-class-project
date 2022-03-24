@@ -7,7 +7,7 @@ import Local from '../../services/Persistence';
 let count = 0;
 
 export default function ColorList() {
-  const list = Local.load();
+  const list = Local.load()? Local.load() : [];
   const [all, setAll] = useState(list);
   const [text, setText] = useState(''); 
   const [color, setColor] = useState('black');
