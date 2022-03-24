@@ -9,7 +9,7 @@ let count = 0;
 export default function ColorList() {
   const list = Local.load();
   const [all, setAll] = useState(list);
-  const [text, setText] = useState('');
+  const [text, setText] = useState(''); 
   const [color, setColor] = useState('black');
 
   function itemClicked(e, newText, newColor, index) {
@@ -35,7 +35,7 @@ export default function ColorList() {
 
   return (
     <div>
-      <Sidebar all={all} itemClicked={itemClicked} />
+      {/* <Sidebar all={all} itemClicked={itemClicked} /> */}
       <InputOutput
         savePressed={savePressed}
         color={color}

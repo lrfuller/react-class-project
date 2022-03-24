@@ -1,0 +1,36 @@
+*{
+  text-align: center;
+  padding:5px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.nav{
+  display: flex;
+  flex: inline-flex;
+  align-items: space-around;
+  margin-left: 10px;
+  margin-right: 10px;
+  line-height:1;
+  font-size: 16px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+
+.welcome{
+  font-size: 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder
+}
+
+.label{
+  font-size:20px;
+  margin-bottom:20px;
+  font-weight:bold;
+}
+
+
+.input{
+  font-size: 12px;
+  margin: auto; 
+}
+
