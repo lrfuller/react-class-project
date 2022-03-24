@@ -1,15 +1,15 @@
 import React from "react";
 import './style-names.css';
-import AutoComplete from './AutoComplete/AutoComplete';
-import HashColors from './HashColors/HashColors';
+import Autocomplete1 from './Autocomplete1/Autocomplete1';
+import Hashcolors from './Hashcolors/Hashcolors';
 
 export default function Names(){
 
     return (
     <div>
-        <HashColors/>
+        <Hashcolors/>
         <div>------------------------------------</div>        
-        <AutoComplete/>
+        <Autocomplete1/>
     </div>
   )
 }

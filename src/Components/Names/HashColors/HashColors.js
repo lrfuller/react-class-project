@@ -3,7 +3,7 @@ import React, {useContext, useState} from 'react';
 
 var sha256 = require('js-sha256');
 
-export default function HashColors() {
+export default function Hashcolors() {
 
   const [myName, setMyName] = useState("name");
   const [color, setColor] = useState("black");

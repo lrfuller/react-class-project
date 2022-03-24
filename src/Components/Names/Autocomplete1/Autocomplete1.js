@@ -16,7 +16,7 @@ const names = [
   { label: 'Christopher' },
 ];
 
-export default function AutoComplete() {
+export default function Autocomplete1() {
 
     //const {value} = useContext(userContext);
     const [name, setName] = useState('')

@@ -27,6 +27,7 @@ export default function ColorList() {
     };
 
     const index = all.length.toString();
+    
     let newAll = all.concat({ index, style: textStyles, text: newText });
 
     setAll(newAll);
@@ -35,7 +36,7 @@ export default function ColorList() {
 
   return (
     <div>
-      {/* <Sidebar all={all} itemClicked={itemClicked} /> */}
+      <Sidebar all={all} itemClicked={itemClicked} /> 
       <InputOutput
         savePressed={savePressed}
         color={color}
