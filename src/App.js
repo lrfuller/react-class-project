@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import Navbar from './Components/Navbar/Navbar';
 import ColorList from './Components/ColorList/ColorList';
+import ColorSlider from './Components/ColorList/Slider/ColorSlider';
+
 
 const Routes = {
-  ColorList: 'Fungii',
+  ColorList: 'Fungii', 
+  ColorSlider: 'Christopher',
 };
 
 export default function App() {
@@ -14,7 +17,10 @@ export default function App() {
     switch (newRoute) {
       case 'ColorList':
         return <ColorList />;
-      ///  new routes
+          ///  new routes
+      case 'ColorSlider':
+        return <ColorSlider />
+    
       default:
         <div />;
     }
