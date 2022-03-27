@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import Navbar from './Components/Navbar/Navbar';
 import ColorList from './Components/ColorList/ColorList';
+import Names from './Components/Names/Names';
 import ColorSlider from './Components/ColorList/Slider/ColorSlider';
 import ColorBox from './Components/ColorBox/ColorBox';
 import TicTacToe from './Components/TicTacToe/TicTacToe';
@@ -12,6 +13,7 @@ import TicTacToe from './Components/TicTacToe/TicTacToe';
 const Routes = {
   TicTacToe: 'Tic Tac Toe',
   ColorList: 'Fungii',
+  Names: 'Jili',
   DakotaPage: 'Dakota',
   ColorBox: 'Damian',
   ColorSlider: 'Christopher',
@@ -24,6 +26,8 @@ export default function App() {
     switch (newRoute) {
       case 'ColorList':
         return <ColorList />;
+      case "Names":
+        return <Names />;
           ///  new routes
       case 'ColorSlider':
         return <ColorSlider />

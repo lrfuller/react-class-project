@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Slider as SliderMUI } from '@mui/material';
 
-export default function Slider({ color, setColor }) {
+export default function Slider1({ color, setColor }) {
   const sliderStyles = {
     width: '200px',
     marginTop: '50px',
