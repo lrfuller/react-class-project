@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import Navbar from './Components/Navbar/Navbar';
 import ColorList from './Components/ColorList/ColorList';
+import ColorSlider from './Components/ColorList/Slider/ColorSlider';
 import ColorBox from './Components/ColorBox/ColorBox';
 import TicTacToe from './Components/TicTacToe/TicTacToe';
 
@@ -9,10 +10,11 @@ import TicTacToe from './Components/TicTacToe/TicTacToe';
 //DCM(1b) -- The Code in comment 1a is an alternative way of importing all component pieces in fewer lines of code using the file ComponentImportList.js.
 
 const Routes = {
-  TicTacToe: 'Tic Tac Toe'
+  TicTacToe: 'Tic Tac Toe',
   ColorList: 'Fungii',
   DakotaPage: 'Dakota',
-  ColorBox: 'Damian'
+  ColorBox: 'Damian',
+  ColorSlider: 'Christopher',
 };
 
 export default function App() {
@@ -22,6 +24,9 @@ export default function App() {
     switch (newRoute) {
       case 'ColorList':
         return <ColorList />;
+          ///  new routes
+      case 'ColorSlider':
+        return <ColorSlider />
       case 'TicTacToe':
         return <TicTacToe />;
       case 'ColorBox':
