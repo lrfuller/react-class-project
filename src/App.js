@@ -8,7 +8,8 @@ import ColorBox from './Components/ColorBox/ColorBox';
 //DCM(1b) -- The Code in comment 1a is an alternative way of importing all component pieces in fewer lines of code using the file ComponentImportList.js.
 
 const Routes = {
-  ColorList: 'Fungii', 
+  ColorList: 'Fungii',
+  DakotaPage: 'Dakota',
   ColorBox: 'Damian'
 };
 
@@ -22,6 +23,8 @@ export default function App() {
       case 'ColorBox':
         return <ColorBox />;
       ///  new routes
+      case 'DakotaPage':
+        return <DakotaPage/>;
       default:
         <div />;
     }
