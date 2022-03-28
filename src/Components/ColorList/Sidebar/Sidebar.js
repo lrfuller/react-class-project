@@ -1,6 +1,9 @@
 import React from 'react';
 
+
+
 export default function Sidebar({ all, itemClicked }) {
+  
   const sidebarStyles = {
     width: '15%',
     height: '100%',
