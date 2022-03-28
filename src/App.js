@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import './style.css';
-import Navbar from './Components/Navbar/Navbar';
-import ColorList from './Components/ColorList/ColorList';
-import Names from './Components/Names/Names';
-import ColorSlider from './Components/ColorList/Slider/ColorSlider';
-import ColorBox from './Components/ColorBox/ColorBox';
-import TicTacToe from './Components/TicTacToe/TicTacToe';
+import React, { useState, useEffect } from "react";
+import "./style.css";
+import Navbar from "./Components/Navbar/Navbar";
+import ColorList from "./Components/ColorList/ColorList";
+import Names from "./Components/Names/Names";
+import ColorSlider from "./Components/ColorList/Slider/ColorSlider";
+import ColorBox from "./Components/ColorBox/ColorBox";
+import TicTacToe from "./Components/TicTacToe/TicTacToe";
+import App21 from "./Components/App21/App21";
 
 //DCM(1a) -+ import {ColorList, ColorBox} from './Components/ComponentImportList';
 //DCM(1b) -- The Code in comment 1a is an alternative way of importing all component pieces in fewer lines of code using the file ComponentImportList.js.
 
 const Routes = {
-  TicTacToe: 'Tic Tac Toe',
-  ColorList: 'Fungii',
-  Names: 'Jili',
-  DakotaPage: 'Dakota',
-  ColorBox: 'Damian',
-  ColorSlider: 'Christopher',
+  TicTacToe: "Tic Tac Toe",
+  ColorList: "Fungii",
+  Names: "Jili",
+  DakotaPage: "Dakota",
+  ColorBox: "Damian",
+  ColorSlider: "Christopher",
+  JacobApp21: "JacobApp21",
 };
 
 export default function App() {
@@ -24,20 +26,22 @@ export default function App() {
 
   function setNewRoute(newRoute) {
     switch (newRoute) {
-      case 'ColorList':
+      case "ColorList":
         return <ColorList />;
       case "Names":
         return <Names />;
-          ///  new routes
-      case 'ColorSlider':
-        return <ColorSlider />
-      case 'TicTacToe':
+      ///  new routes
+      case "ColorSlider":
+        return <ColorSlider />;
+      case "TicTacToe":
         return <TicTacToe />;
-      case 'ColorBox':
+      case "ColorBox":
         return <ColorBox />;
       ///  new routes
-      case 'DakotaPage':
-        return <DakotaPage/>;
+      case "DakotaPage":
+        return <DakotaPage />;
+      case "JacobApp21":
+        return <App21 />;
       default:
         <div />;
     }
