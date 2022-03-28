@@ -6,6 +6,7 @@ import Names from './Components/Names/Names';
 import ColorSlider from './Components/ColorList/Slider/ColorSlider';
 import ColorBox from './Components/ColorBox/ColorBox';
 import TicTacToe from './Components/TicTacToe/TicTacToe';
+import MovieForm from './Components/LukasPage/movieForm';
 
 //DCM(1a) -+ import {ColorList, ColorBox} from './Components/ComponentImportList';
 //DCM(1b) -- The Code in comment 1a is an alternative way of importing all component pieces in fewer lines of code using the file ComponentImportList.js.
@@ -17,6 +18,7 @@ const Routes = {
   DakotaPage: 'Dakota',
   ColorBox: 'Damian',
   ColorSlider: 'Christopher',
+  MovieForm: 'Lukas',
 };
 
 export default function App() {
@@ -26,18 +28,20 @@ export default function App() {
     switch (newRoute) {
       case 'ColorList':
         return <ColorList />;
-      case "Names":
+      case 'Names':
         return <Names />;
-          ///  new routes
+      ///  new routes
       case 'ColorSlider':
-        return <ColorSlider />
+        return <ColorSlider />;
       case 'TicTacToe':
         return <TicTacToe />;
       case 'ColorBox':
         return <ColorBox />;
       ///  new routes
       case 'DakotaPage':
-        return <DakotaPage/>;
+        return <DakotaPage />;
+      case 'MovieForm':
+        return <MovieForm />;
       default:
         <div />;
     }
