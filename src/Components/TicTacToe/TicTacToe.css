@@ -31,3 +31,18 @@
   background: rgba(0,0,0,0);
   border: 1px solid black;
 }
+
+.flex__center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flex__center-row {
+  flex-direction: row;
+}
+
+.hide {
+  display: none;
+}
