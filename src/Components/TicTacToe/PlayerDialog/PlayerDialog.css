@@ -1,0 +1,12 @@
+.centered {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
