@@ -4,28 +4,36 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import Checkbox from '@mui/material/Checkbox';
 import './PlayerDialog.css';
+import SvgIcon from '@mui/material/SvgIcon';
 
 let className = "flex__center";
 
 export default function PlayerDialog(props) {
-  const { onClose, open } = props;
+  const { onClose, open, dataFromDialog } = props;
+
 
   function handleClose(){
-    onClose(selectValue);
+    onClose();
   }
 
-  function handleSelection(value){
-    onClose(value);
+  function handleSelection(char){
+    dataFromDialog(char);
+    onClose();
   }
 
   return (
-    <Dialog onClose={()=> handleMove()} open={open}>
-      <DialogTitle>Set backup account</DialogTitle>
+    <Dialog onClose={handleClose} open={open}>
+      <DialogTitle>Pick Your Character!</DialogTitle>
       <div className="centered">
-        <h3 className="centered">Pick your character!</h3>
-        <div className={className}>
-          <div>X<Checkbox onChange={() => setPlayerCharacter('X')}/></div>
-          <div>O<Checkbox onChange={() => setPlayerCharacter('O')}/></div>
+        <div>
+          <div className="center">
+            <p>X</p>
+            <Checkbox onChange={() => handleSelection('X')}/>
+          </div>
+          <div className="center">
+            <p>O</p>
+            <Checkbox onChange={() => handleSelection('O')}/>
+          </div>
         </div>
       </div>
     </Dialog>

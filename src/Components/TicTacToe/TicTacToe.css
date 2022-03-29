@@ -1,7 +1,13 @@
-.centered {
+.align-center {
   display: flex;
   justify-content: center;
+  margin-bottom: 2em;
 }
+
+.title {
+  text-decoration: underline;
+}
+
 
 .board-container {
   width: 100%;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from '@mui/material/Checkbox';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -6,41 +6,50 @@ import Dialog from '@mui/material/Dialog';
 import './TicTacToe.css';
 import PlayerDialog from './PlayerDialog/PlayerDialog';
 import SvgIcon from '@mui/material/SvgIcon';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import { styled } from '@mui/material/styles';
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
-let huPlayer = "O";
-let aiPlayer = "X";
-let className = "flex__center";
 
-function X(props) {
-  return (
-    <SvgIcon {...props}>
-      <path fillRule="evenodd" clipRule="evenodd" d="M4.22676 4.22676C4.5291 3.92441 5.01929 3.92441 5.32163 4.22676L12 10.9051L18.6784 4.22676C18.9807 3.92441 19.4709 3.92441 19.7732 4.22676C20.0756 4.5291 20.0756 5.01929 19.7732 5.32163L13.0949 12L19.7732 18.6784C20.0756 18.9807 20.0756 19.4709 19.7732 19.7732C19.4709 20.0756 18.9807 20.0756 18.6784 19.7732L12 13.0949L5.32163 19.7732C5.01929 20.0756 4.5291 20.0756 4.22676 19.7732C3.92441 19.4709 3.92441 18.9807 4.22676 18.6784L10.9051 12L4.22676 5.32163C3.92441 5.01929 3.92441 4.5291 4.22676 4.22676Z" fill="#030D45"/>
-    </SvgIcon>
-  )
-}
-
-function O(props) {
-  return (
-    <SvgIcon {...props}>
-      <path fill="var(--ci-primary-color, currentColor)" d="M256.6,496A239.364,239.364,0,0,0,425.856,87.379,239.364,239.364,0,0,0,87.344,425.892,237.8,237.8,0,0,0,256.6,496Zm0-446.729c114.341,0,207.365,93.023,207.365,207.364S370.941,464,256.6,464,49.236,370.977,49.236,256.635,142.259,49.271,256.6,49.271Z" class="ci-primary"/>
-    </SvgIcon>
-  )
-}
 
 PlayerDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
-  open: PropTypes.func.isRequired
+  open: PropTypes.bool.isRequired
 };
 
 export default function TicTacToe() {
+  // game state
   const [board, setBoard] = useState({gameboard: [0,1,2,3,4,5,6,7,8]});
   const [turn, setTurn] = useState(0); // 0 -> player 1, 1 -> ai
+  const [round, setRound] = useState(0);
+
+  // character selection
   const [players, setPlayers] = useState([null,null]);
-  const [checked, setChecked] = useState(false);
   const [open, setOpen] = useState(true);
 
-  // save game record to localStorage
-  function emptyIndexies() {
+  useEffect(() => {
+    console.log("gameboard: " + board.gameboard);
+    console.log("current round: " + round);
+    console.log("current turn: " + turn);
+  })
+
+  function X(props) {
+    return (
+      <SvgIcon {...props}>
+        <path fillRule="evenodd" clipRule="evenodd" d="M4.22676 4.22676C4.5291 3.92441 5.01929 3.92441 5.32163 4.22676L12 10.9051L18.6784 4.22676C18.9807 3.92441 19.4709 3.92441 19.7732 4.22676C20.0756 4.5291 20.0756 5.01929 19.7732 5.32163L13.0949 12L19.7732 18.6784C20.0756 18.9807 20.0756 19.4709 19.7732 19.7732C19.4709 20.0756 18.9807 20.0756 18.6784 19.7732L12 13.0949L5.32163 19.7732C5.01929 20.0756 4.5291 20.0756 4.22676 19.7732C3.92441 19.4709 3.92441 18.9807 4.22676 18.6784L10.9051 12L4.22676 5.32163C3.92441 5.01929 3.92441 4.5291 4.22676 4.22676Z" fill="#030D45"/>
+      </SvgIcon>
+    )
+  }
+
+  function O(props) {
+    return (
+      <CircleOutlinedIcon/>
+    )
+  }
+
+  function emptyIndecies() {
     return board.gameboard.filter(s => s != "0" && s != "X");
   }
 
@@ -62,15 +71,15 @@ export default function TicTacToe() {
     }
   }
 
-  // minimax algo.
+  // minimax algo. huPlayer = players[0], aiPlayer = players[1]
   function minimax(newBoard, player) {
-    let availSpots = emptyIndexies(newBoard);
+    let availSpots = emptyIndecies();
 
     if (availSpots.length === 0){
       return {score: 0};
-    }  else if (winning(newBoard, huPlayer)){
+    }  else if (winning(players[0])){
       return {score: -10};
-    } else if (winning(newBoard, aiPlayer)){
+    } else if (winning(players[1])){
       return {score: 10};
     }
 
@@ -81,21 +90,20 @@ export default function TicTacToe() {
       move.index = newBoard[availSpots[i]];
       newBoard[availSpots[i]] = player;
 
-      if (player == aiPlayer){
-        var result = minimax(newBoard, huPlayer);
+      if (player == players[1]){
+        var result = minimax(newBoard, players[0]);
         move.score = result.score;
       } else {
-        var result = minimax(newBoars, aiPlayer);
+        var result = minimax(newBoard, players[1]);
         move.score = result.score;
       }
 
       newBoard[availSpots[i]] = move.index;
-
       moves.push(move);
     }
 
     var bestMove;
-    if (player === aiPlayer){
+    if (player === players[1]){
       var bestScore = -10000;
       for (var i = 0; i < moves.length; i++){
         if (moves[i].score > bestScore){
@@ -112,51 +120,109 @@ export default function TicTacToe() {
         }
       }
     }
-
     return moves[bestMove];
   }
 
-  function setPlayerCharacter(char) {
-    if (char == 'X'){
-      setPlayers(['X', 'O']);
-    } else {
-      setPlayers(['O', 'X']);
+  function reset() {
+    setBoard({gameboard: [0,1,2,3,4,5,6,7,8]});
+    setRound(0);
+    setTurn(0);
+  }
+
+  // only respond if board space is available, i.e. != 'O' or 'X'
+  function handleMove(index, player) {
+    console.log("index: " + index, "player: " + player);
+    let newRound = round + 1;
+    let currentBoard = board.gameboard
+
+    if (board.gameboard[index] != 'O' && board.gameboard[index] != 'X'){
+      currentBoard[index] = players[0];
+      let updatedBoard = currentBoard;
+      setBoard({gameboard: updatedBoard});
+
+      //console.log("in-move round: " + round);
+      // check if human player won
+      if(winning(players[0])) {
+        setTimeout(function() {
+          alert("Victory");
+          reset();
+        }, 500);
+        return;
+      } // check for stalemate
+      else if (round > 7) {
+        setTimeout(function() {
+          alert("Evenly matched");
+          reset();
+        }, 500);
+        return;
+      }
+      setRound(newRound);
+      // simulate ai's turn
+      handleAiMove();
     }
-    className += ' hide';
   }
 
-  function handleMove(e) {
-    console.log(e);
+  function handleAiMove() {
+    console.log("Ai move");
+    let newRound = round + 1;
+    let currentBoard = board.gameboard
+    let index = minimax(currentBoard, players[1]).index;
+    currentBoard[index] = players[1];
+    let updatedBoard = currentBoard;
+    setBoard({gameboard: updatedBoard});
+
+    if(winning(players[1])) {
+      setTimeout(function() {
+        alert("Defeat");
+        reset();
+      }, 500);
+      return;
+    } // since player
+
+    setRound(newRound);
   }
 
-  function handleListItemClick(email){
-    console.log(email);
+  function setPlayerCharacter(char) {
+    char == 'X' ? setPlayers(['X', 'O']) : setPlayers(['O', 'X']);
   }
 
-  function handleClose(value){
+  function getCharacterSelection(char){
+    setPlayerCharacter(char);
+  }
+
+  function handleClose(){
     setOpen(false);
   }
 
+  // <X sx={{ width: "24px", height: "24px", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" }}/>
   return (
-    <div>
-      <div className="flex__center">
+    <Box>
+      <Container>
         <PlayerDialog
+          onClose={handleClose}
           open={open}
-          onClose={handleClose}/>
-        <div>
-          <h2 className="centered"> Play Tic Tac Toe </h2>
-          <p className="centered">Player {turn+1}'s turn </p>
-          <div className="board-container">
-            <div className="board">
-              {board.gameboard.map((spot) => (
-                <div className="board-spot" onClick={handleMove}>
-                  <X sx={{ width: "24px", height: "24px", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" }}/>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          dataFromDialog={getCharacterSelection}/>
+        <Box sx={{ width: "300px", height: "300px", margin: "0 auto" }}>
+          <h2 className="align-center title"> Tic Tac Toe </h2>
+          <Grid container spacing={0}>
+            {board.gameboard.map((spot, index) => (
+              <Grid item xs={4}>
+                <Box sx={{
+                  width: "100px",
+                  height: "100px",
+                  background: "rgba(0,0,0,0)",
+                  border: "1px solid black",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center" }} onClick={() => handleMove(index, players[turn])}>
+                  {(board.gameboard[index] == 'X') && <X sx={{ width: "24px", height: "24px", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" }}/>}
+                  {(board.gameboard[index] == 'O') && <O/>}
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
+    </Box>
   )
 }
