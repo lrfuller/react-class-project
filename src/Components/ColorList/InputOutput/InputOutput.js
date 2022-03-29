@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { sha256 } from 'js-sha256';
-import Slider from '../Slider/Slider';
+import Slider1 from '../Slider/Slider';
 import { Button } from '@mui/material';
 
 export default function InputOutput({
@@ -66,7 +66,7 @@ export default function InputOutput({
         </Button>
       </div>
       <p style={textStyles}>{text}</p>
-      <Slider color={color} setColor={setColor} />
+      <Slider1 color={color} setColor={setColor} />
     </div>
   );
 }
