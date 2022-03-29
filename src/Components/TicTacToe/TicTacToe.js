@@ -50,7 +50,7 @@ export default function TicTacToe() {
   }
 
   function emptyIndecies() {
-    return board.gameboard.filter(s => s != "0" && s != "X");
+    return board.gameboard.filter(s => s != "O" && s != "X");
   }
 
   // pass in players[turn] when calling, i.e. winning(players[turn])
@@ -72,23 +72,31 @@ export default function TicTacToe() {
   }
 
   // minimax algo. huPlayer = players[0], aiPlayer = players[1]
-  function minimax(newBoard, player) {
+  function minimax(targetBoard, player){
+    //console.log("inside minimax function");
+    let newBoard = targetBoard;
+    //console.log("game board at the top of minimax", newBoard);
     let availSpots = emptyIndecies();
+    //console.log("empty Indecies: ", availSpots);
 
+    // base cases: if no spots available on this path, return score: 0
     if (availSpots.length === 0){
       return {score: 0};
-    }  else if (winning(players[0])){
+    }  else if (winning(players[0])){ // if the human player wins at the end of this path, return score: -10
       return {score: -10};
-    } else if (winning(players[1])){
+    } else if (winning(players[1])){ // if the ai player wins, return score: 10
       return {score: 10};
     }
 
     var moves = [];
 
+    //console.log("entering minimax loop");
     for (var i = 0; i < availSpots.length; i++){
       var move = {};
       move.index = newBoard[availSpots[i]];
+      //console.log(move);
       newBoard[availSpots[i]] = player;
+      //console.log('newBoard inside loop:', newBoard);
 
       if (player == players[1]){
         var result = minimax(newBoard, players[0]);
@@ -102,6 +110,7 @@ export default function TicTacToe() {
       moves.push(move);
     }
 
+    //console.log("moves middle of minimax:", moves);
     var bestMove;
     if (player === players[1]){
       var bestScore = -10000;
@@ -120,13 +129,8 @@ export default function TicTacToe() {
         }
       }
     }
+    //console.log("moves array at the end of minimax: ", moves);
     return moves[bestMove];
-  }
-
-  function reset() {
-    setBoard({gameboard: [0,1,2,3,4,5,6,7,8]});
-    setRound(0);
-    setTurn(0);
   }
 
   // only respond if board space is available, i.e. != 'O' or 'X'
@@ -158,15 +162,19 @@ export default function TicTacToe() {
       }
       setRound(newRound);
       // simulate ai's turn
-      handleAiMove();
+      //handleAiMove();
     }
   }
 
   function handleAiMove() {
-    console.log("Ai move");
+    console.log("AI's move");
+
     let newRound = round + 1;
-    let currentBoard = board.gameboard
+    let currentBoard = board.gameboard;
+    console.log("current board (ai turn): ", currentBoard);
     let index = minimax(currentBoard, players[1]).index;
+    console.log("index: ", index);
+
     currentBoard[index] = players[1];
     let updatedBoard = currentBoard;
     setBoard({gameboard: updatedBoard});
@@ -179,6 +187,7 @@ export default function TicTacToe() {
       return;
     } // since player
 
+    console.log("AI finished it's move");
     setRound(newRound);
   }
 
@@ -192,6 +201,12 @@ export default function TicTacToe() {
 
   function handleClose(){
     setOpen(false);
+  }
+
+  function reset() {
+    setBoard({gameboard: [0,1,2,3,4,5,6,7,8]});
+    setRound(0);
+    setTurn(0);
   }
 
   // <X sx={{ width: "24px", height: "24px", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" }}/>
@@ -214,7 +229,7 @@ export default function TicTacToe() {
                   border: "1px solid black",
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center" }} onClick={() => handleMove(index, players[turn])}>
+                  alignItems: "center" }} onClick={() => {handleMove(index, players[turn]); handleAiMove()}}>
                   {(board.gameboard[index] == 'X') && <X sx={{ width: "24px", height: "24px", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" }}/>}
                   {(board.gameboard[index] == 'O') && <O/>}
                 </Box>
