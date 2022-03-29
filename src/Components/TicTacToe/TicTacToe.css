@@ -1,7 +1,17 @@
-.centered {
+.no-padding {
+  padding: 0;
+}
+
+.align-center {
   display: flex;
   justify-content: center;
+  margin-bottom: 2em;
 }
+
+.title {
+  text-decoration: underline;
+}
+
 
 .board-container {
   width: 100%;
@@ -30,4 +40,19 @@
   height: 250px;
   background: rgba(0,0,0,0);
   border: 1px solid black;
+}
+
+.flex__center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flex__center-row {
+  flex-direction: row;
+}
+
+.hide {
+  display: none;
 }

@@ -8,6 +8,7 @@ export default function Navbar({ setSelected, routes }) {
     gridDirection: 'row',
     justifyContent: 'center',
     backgroundColor: 'aquamarine',
+    flexWrap: 'wrap',
   };
 
   const linkStyles = {
