@@ -7,6 +7,7 @@ import ColorSlider from './Components/ColorList/Slider/ColorSlider';
 import ColorBox from './Components/ColorBox/ColorBox';
 import TicTacToe from './Components/TicTacToe/TicTacToe';
 import CircleClicker from './Components/CircleClicker/CircleClicker.jsx';
+import NameForm from './Components/NameForm/Form'
 
 //DCM(1a) -+ import {ColorList, ColorBox} from './Components/ComponentImportList';
 //DCM(1b) -- The Code in comment 1a is an alternative way of importing all component pieces in fewer lines of code using the file ComponentImportList.js.
@@ -19,6 +20,7 @@ const Routes = {
   ColorBox: 'Damian',
   ColorSlider: 'Christopher',
   CircleClicker: 'Dan',
+  NameForm: 'Anthony',
 };
 
 export default function App() {
@@ -42,6 +44,8 @@ export default function App() {
         return <DakotaPage/>;
       case 'CircleClicker':
         return <CircleClicker/>;
+      case 'NameForm':
+        return <NameForm title='Color Your Name' />
       default:
         <div />;
     }
