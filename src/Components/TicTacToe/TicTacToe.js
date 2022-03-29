@@ -12,8 +12,6 @@ import Container from '@mui/material/Container';
 import { styled } from '@mui/material/styles';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
-
-
 PlayerDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired
@@ -73,11 +71,8 @@ export default function TicTacToe() {
 
   // minimax algo. huPlayer = players[0], aiPlayer = players[1]
   function minimax(targetBoard, player){
-    //console.log("inside minimax function");
     let newBoard = targetBoard;
-    //console.log("game board at the top of minimax", newBoard);
     let availSpots = emptyIndecies();
-    //console.log("empty Indecies: ", availSpots);
 
     // base cases: if no spots available on this path, return score: 0
     if (availSpots.length === 0){
@@ -89,14 +84,10 @@ export default function TicTacToe() {
     }
 
     var moves = [];
-
-    //console.log("entering minimax loop");
     for (var i = 0; i < availSpots.length; i++){
       var move = {};
       move.index = newBoard[availSpots[i]];
-      //console.log(move);
       newBoard[availSpots[i]] = player;
-      //console.log('newBoard inside loop:', newBoard);
 
       if (player == players[1]){
         var result = minimax(newBoard, players[0]);
@@ -110,7 +101,6 @@ export default function TicTacToe() {
       moves.push(move);
     }
 
-    //console.log("moves middle of minimax:", moves);
     var bestMove;
     if (player === players[1]){
       var bestScore = -10000;
@@ -129,7 +119,6 @@ export default function TicTacToe() {
         }
       }
     }
-    //console.log("moves array at the end of minimax: ", moves);
     return moves[bestMove];
   }
 
@@ -144,7 +133,6 @@ export default function TicTacToe() {
       let updatedBoard = currentBoard;
       setBoard({gameboard: updatedBoard});
 
-      //console.log("in-move round: " + round);
       // check if human player won
       if(winning(players[0])) {
         setTimeout(function() {
@@ -161,8 +149,6 @@ export default function TicTacToe() {
         return;
       }
       setRound(newRound);
-      // simulate ai's turn
-      //handleAiMove();
     }
   }
 
@@ -171,10 +157,7 @@ export default function TicTacToe() {
 
     let newRound = round + 1;
     let currentBoard = board.gameboard;
-    console.log("current board (ai turn): ", currentBoard);
     let index = minimax(currentBoard, players[1]).index;
-    console.log("index: ", index);
-
     currentBoard[index] = players[1];
     let updatedBoard = currentBoard;
     setBoard({gameboard: updatedBoard});
@@ -185,7 +168,7 @@ export default function TicTacToe() {
         reset();
       }, 500);
       return;
-    } // since player
+    }
 
     console.log("AI finished it's move");
     setRound(newRound);
@@ -209,9 +192,8 @@ export default function TicTacToe() {
     setTurn(0);
   }
 
-  // <X sx={{ width: "24px", height: "24px", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" }}/>
   return (
-    <Box>
+    <Box className="no-padding">
       <Container>
         <PlayerDialog
           onClose={handleClose}
@@ -219,9 +201,9 @@ export default function TicTacToe() {
           dataFromDialog={getCharacterSelection}/>
         <Box sx={{ width: "300px", height: "300px", margin: "0 auto" }}>
           <h2 className="align-center title"> Tic Tac Toe </h2>
-          <Grid container spacing={0}>
+          <Grid container spacing={0} className="no-padding">
             {board.gameboard.map((spot, index) => (
-              <Grid item xs={4}>
+              <Grid item xs={4} className="no-padding">
                 <Box sx={{
                   width: "100px",
                   height: "100px",
@@ -229,7 +211,8 @@ export default function TicTacToe() {
                   border: "1px solid black",
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center" }} onClick={() => {handleMove(index, players[turn]); handleAiMove()}}>
+                  alignItems: "center" }} onClick={() => {handleMove(index, players[turn]); handleAiMove()}}
+                  className="no-padding">
                   {(board.gameboard[index] == 'X') && <X sx={{ width: "24px", height: "24px", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" }}/>}
                   {(board.gameboard[index] == 'O') && <O/>}
                 </Box>

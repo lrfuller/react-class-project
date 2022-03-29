@@ -1,3 +1,7 @@
+.no-padding {
+  padding: 0;
+}
+
 .align-center {
   display: flex;
   justify-content: center;
