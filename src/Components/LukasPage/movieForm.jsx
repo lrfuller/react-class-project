@@ -66,20 +66,10 @@ export default function movieForm() {
 
   return (
     <>
-      <div className="container">
-        <div className="textCenter">
-          The requirements for the text field are to have a different color for
-          different characters, but if the character string exist then repeat
-          the color. Also have a slider that displays it's number.
-          <br />
-          The idea I was going with to eventaully fill out is to make a movie
-          form with how many tickets, then display them. Potentially move it to
-          a database with a select option for the movies available, price,
-          pagination to display all the current purchases, stuff like that.
-        </div>
+      <div className="Lcontainer">
         <br />
-        <form onSubmit={handleSubmit}>
-          <div className="form1">
+        <form className="Lform" onSubmit={handleSubmit}>
+          <div>
             <div className="row">
               <div className="col-4 formSize1">
                 <label>
@@ -118,22 +108,22 @@ export default function movieForm() {
             </div>
           </div>
           <br />
-          <div className="displayFlex">
-            <div className="marginA">
-              {/* if condition is used since we only are showing the array object after it's been defined with "handleSubmit" first execution */}
-              {first != 1 &&
-                movieArray.map(({ name, colorType, seatNum }) => (
-                  <li key={name} className="listStyle">
-                    Movie: <span style={{ color: colorType }}>{name} </span>
-                    <br />
-                    Tickets:{seatNum}
-                    <br />
-                    <br />
-                  </li>
-                ))}
-            </div>
-          </div>
         </form>
+        <div className="displayFlex">
+          <div className="marginA">
+            {/* if condition is used since we only are showing the array object after it's been defined with "handleSubmit" first execution */}
+            {first != 1 &&
+              movieArray.map(({ name, colorType, seatNum }) => (
+                <li key={name} className="listStyle">
+                  Movie: <span style={{ color: colorType }}>{name} </span>
+                  <br />
+                  Tickets:{seatNum}
+                  <br />
+                  <br />
+                </li>
+              ))}
+          </div>
+        </div>
       </div>
     </>
   );
