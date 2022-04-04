@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import formPage from './formPage';
 import Slider from '@mui/material/Slider';
+import Table from './table';
 import './movie.css';
 
-export default function movieForm() {
-  let [movieArray, setMovieArray] = useState([
-    { name: 'movie', colorType: 'color', seatNum: 'number' },
-  ]);
-  let [movie, setMovie] = useState(null);
+export default function movieForm({ parentArrChange }) {
+  let [movieArray, setMovieArray] = useState([]);
+  // let [movieArray, setMovieArray] = useState([
+  //   { name: 'Bill', colorType: 'black', seatNum: '2', movie: 'Batman' },
+  // ]);
+  let [movie, setMovieID] = useState(1);
+  let [name, setName] = useState(null);
   let [first, setFirst] = useState(1);
   let [number, setNumber] = useState(1);
+  let [availableMovies, setAvailableMovies] = useState([
+    { id: 1, movie: 'The Batman' },
+    { id: 2, movie: 'Spider-Man: No Way Home' },
+    { id: 3, movie: 'Jujutsu Kaisen 0' },
+  ]);
+  let [displayMovies, setDisplayMovies] = useState(null);
+  const [isInitialRender, setIsInitialRender] = useState(true);
 
   // https://stackoverflow.com/questions/1484506/random-color-generator
   function createColor() {
@@ -21,17 +32,24 @@ export default function movieForm() {
   }
 
   //if name repeats, set the color to the same
-  function setRepeatingColor(arr, m, color) {
+  function setRepeatingColor(arr, n, color) {
     let tempC = color;
     arr.find((e) => {
-      if (e.name === m) {
+      if (e.name === n) {
         tempC = e.colorType;
       }
     });
     return tempC;
   }
+  function getName(event) {
+    setName(event.target.value);
+  }
   function getMovie(event) {
-    setMovie(event.target.value);
+    setMovieID(event.target.value);
+  }
+
+  function displayMovieName(m) {
+    return availableMovies[m].movie;
   }
 
   const handleSliderChange = (event, newValue) => {
@@ -44,25 +62,56 @@ export default function movieForm() {
   function handleSubmit(event) {
     let color = createColor();
     //find if the name repeats
-    color = setRepeatingColor(movieArray, movie, color);
+    color = setRepeatingColor(movieArray, name, color);
 
     // this is set to avoid undefined errors.
     if (first == 1) {
-      setMovieArray([{ name: movie, colorType: color, seatNum: number }]);
+      let tempArr = {
+        name: name,
+        colorType: color,
+        seatNum: number,
+        movie: movie,
+      };
+      setMovieArray([tempArr]);
       setFirst(0);
+      parentArrChange([tempArr], 0);
     } else {
       setMovieArray(
         (movieArray = movieArray.concat({
-          name: movie,
+          name: name,
           colorType: color,
           seatNum: number,
+          movie: movie,
         }))
       );
+      parentArrChange(movieArray, 0);
     }
+
+    // parentArr = movieArray;
+
     event.preventDefault();
     // setNumber(1);
-    // setMovie('')
+    // setName('')
   }
+
+  //stopped loading...
+
+  useEffect(() => {
+    //only run once
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      setDisplayMovies(
+        availableMovies.length > 0 &&
+          availableMovies.map((movie, i) => {
+            return (
+              <option key={i} value={movie.id}>
+                {movie.movie}
+              </option>
+            );
+          }, this)
+      );
+    }
+  });
 
   return (
     <>
@@ -73,17 +122,15 @@ export default function movieForm() {
             <div className="row">
               <div className="col-4 formSize1">
                 <label>
-                  Movie
+                  Name
                   <input
                     className="form-control"
                     type="text"
-                    onChange={getMovie}
+                    onChange={getName}
                   />
                 </label>
               </div>
 
-              {/* <br />
-      <br /> */}
               <div className="col-4 formSize1">
                 <label>Tickets</label> {number}
                 <Slider
@@ -97,6 +144,18 @@ export default function movieForm() {
                   aria-labelledby="non-linear-slider"
                 />
               </div>
+              <div className="col-4 formSize1">
+                <label>
+                  Movie
+                  <select
+                    className="form-select"
+                    onChange={getMovie}
+                    value={movie}
+                  >
+                    {displayMovies}
+                  </select>
+                </label>
+              </div>
             </div>
             <br />
             <div>
@@ -107,17 +166,18 @@ export default function movieForm() {
               />
             </div>
           </div>
-          <br />
         </form>
         <div className="displayFlex">
           <div className="marginA">
             {/* if condition is used since we only are showing the array object after it's been defined with "handleSubmit" first execution */}
             {first != 1 &&
-              movieArray.map(({ name, colorType, seatNum }) => (
+              movieArray.map(({ name, colorType, seatNum, movie }) => (
                 <li key={name} className="listStyle">
-                  Movie: <span style={{ color: colorType }}>{name} </span>
+                  Name: <span style={{ color: colorType }}>{name} </span>
                   <br />
                   Tickets:{seatNum}
+                  <br />
+                  Movie: {displayMovieName(movie - 1)}
                   <br />
                   <br />
                 </li>
